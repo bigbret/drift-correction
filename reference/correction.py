@@ -6,12 +6,12 @@ def generate_fixations_center(aois_with_tokens):
     fixations = []
     
     for index, row in aois_with_tokens.iterrows():
-        x, y, width, height = row['x'], row['y'], row['width'], row['height']
+        x, y, width, height, token = row['x'], row['y'], row['width'], row['height'], row['token']
         
         fixation_x = x + width / 2
         fixation_y = y + height / 2
         
-        fixations.append([fixation_x, fixation_y])
+        fixations.append([fixation_x, fixation_y, len(token) * 50])
         
     return fixations
 
@@ -48,7 +48,7 @@ def generate_fixations_left_skip(aois_with_tokens):
         if len(token) < 4 and random.random() > 0.7:
             skip_count += 1 # fixations.append([fixation_x, fixation_y])
         else:
-            fixations.append([fixation_x, fixation_y])
+            fixations.append([fixation_x, fixation_y, len(token) * 50])
     
     print(skip_count / word_count)
     return fixations
@@ -71,7 +71,7 @@ def generate_fixations_left_skip(aois_with_tokens, skip_probability):
         if random.random() < skip_probability:
             skip_count += 1 # fixations.append([fixation_x, fixation_y])
         else:
-            fixations.append([fixation_x, fixation_y])
+            fixations.append([fixation_x, fixation_y, len(token) * 50])
     
     #print(skip_count / word_count)
     return fixations
